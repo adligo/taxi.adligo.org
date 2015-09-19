@@ -42,7 +42,7 @@ p) the total number of data bytes in the payload including the TAXI header bytes
 s) the nodes latest to oldest which have transfered this message. 
 t) The unique identifier of a browser tab, with in the scope of the actor (Person using a Web Browser)
    server combination.  This key should always be present when a Browser sends a TAXI message,
-   and may be present to route a message to a particular browser window when a Handler (internal server) 
+   and may be present to route a message to a particular browser window when a Handler (server or internal server) 
    sends a message.
 u) the endpoint users that are expected to receive the WS data.
      Note the character '*' represents all users.

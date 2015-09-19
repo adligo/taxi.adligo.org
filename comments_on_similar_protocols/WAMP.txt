@@ -1,15 +1,18 @@
 WAMP, I have also given some thoughts to adding layers to the WS protocol for RPC, broadcast,
 group delivery, user list delivery.  In general I think your trying to do to much stuff in your
-WAMP protocol and that the next layer on top of WS should only contain routing information, and not
-deal with the data formating of the other message data.  I also think this routing information
-should be stored in the payload section of the WS message, and also potentially be stored in
+WAMP protocol and that the next layer on top of WS should only contain routing, history (where the message has been)
+and iniatior (sender) information, and not deal with the data formating of the other message data.  I also think this 
+routing information should be stored in the payload section of the WS message, and also potentially be stored in
 extension headers (an client optional optimization, compatible with per message compression, deflation).  
    I think this will provide better universally compatible standard long term, that will 
-also stay backward compatible with original WS (version null) implementations.   I also think 
-it will focus the protocol implementations leaving other softer implementation details choices to other protocol layers 
+also stay backward compatible with original HTTP (1.0) and WS (version null) implementations.   I also think 
+it will focus the protocol implementations, leaving other software implementation details choices to other protocol layers 
 (so that others can branch as desired and or necessary).   I am trying to 
 do something with this narrowed routing information only scope in the taxi.adligo.org project (sometime in the future).
-  In other words, 
-  I wouldn't want to jump into usage of a implementation that is having trouble getting comments.
-  Self-Healing/Failover seems to be or is this what you meant by federation?
+  In other words, I wouldn't want to jump into usage of a protocol implementation that seems to do two things
+(routing and data).  I think that each protocol layer should have quite limited scope, so that branches and 
+implementations are kept to a minimum.  I would split WAMP into at least 2 protocols one for routing, and 
+an additional layer for JSON data. 
+  Also;
+  Self-Healing/Failover seems to be missing, or is this what you meant by federation?
   
