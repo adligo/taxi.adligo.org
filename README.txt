@@ -4,17 +4,18 @@ Informal Draft 09/18/2015
 TAXI: not a proper acronym, but chosen because it sounds like what this protocol is trying to accomplish.
 TAXI is a replacement for asdcp.adligo.org, the initial proof of concept. 
 
-Use: To transfer and exchange or route information transmitted over a Web Socket connection one or 
-more other Web Socket(s).  The point of TAXI to provide the destination address[es] where the WS 
+Use: To transfer and exchange or route information transmitted over a HTTP(s) (or Web Socket (wss)) connection one or 
+more other HTTP(s) connections (Web Socket(s) (wss)).  The point of TAXI to provide the destination address[es] where the WS 
 data should go and where it has been and who or what sent it only.  This allows other protocols
 to extend this draft and use a variety of data formats (Utf-8 text, Xml, Binary, etc).
 
 TAXI is comprised of a Utf-8 character string/header which exists in the data section of a Web Socket message,
 or may also exist in the extension section of a web socket message if supported by the client and server.
+For regular HTTP the TAXI header is the first text in the EntityBody section of the message.
 Usage of the extension section is preferred since it is faster to parse if the message data
 is compressed, however it may not be implemented by various Web Socket clients.  TAXI
-should remain compatible with all Web Socket clients, including those that never even had 
-a version number.
+should remain compatible with all Http and Web Socket clients, including those that never even had 
+a protocol version number.
    The TAXI header consists of list of simple key=value pairs separated by commas and ending in a semicolon.
 I.E.;
 a=scott,g={devs,admins},c=text
@@ -33,7 +34,7 @@ http://www-12.lotus.com/ldd/doc/domino_notes/7.0/help_admin_upgrade7.nsf/b3266a3
 http://www.openldap.org/lists/openldap-software/200204/msg00563.html
 
 Important TAXI data keys {key value before a semicolon; then other data in payload frames} to a TAXI connection;
-a) actor the name of the user (in computer) or response (system) of the initiate of a WS data transfer.
+a) actor the name of the user (in computer) or handler (system responder) of the initiate of a WS data transfer.
 c) command a string like data structure to instruct the endpoint what to do with the WS data.
 g) A list of the endpoint groups that are expected to receive the WS data.
    Note the character '*' represents all groups. 
@@ -113,3 +114,4 @@ client jim displays tests and sends
    c=deleteTexts,p=7,t=1;ids=1,2
    
 Note the above text xml nodes are not part of the TAXI specification.
+Also note TAXI can not be layered over Bayeux since JSON must be used everywhere in Bayeux.
